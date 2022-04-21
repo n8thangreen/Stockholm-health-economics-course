@@ -3,19 +3,15 @@ title: Home
 layout: default
 ---
 
-# Bootstrap Workshop Template!
+# Health economics modelling in R
 
-{% include figure.html img="uidaho-workshop.jpg" alt="intro image here" caption="Library workshop" width="75%" %}
+{% include figure.html img="destinations-stockholm-banner-mobile-1024x553.jpg" alt="intro image here" caption="Stockholm" width="75%" %}
 
-A minimal Jekyll theme with Bootstrap for creating workshop websites.
+Health economics modelling in R
 
 *Add your workshop abstract here!*
 
-Learn how to create a super quick easy website for a workshop by writing a few markdown files! 
-Host it for free on GitHub with gh-pages, and share!
-Fun!
-
-*See also:* [workshop-template](https://evanwill.github.io/workshop-template/), original minimal version.
+Learn about health economics modelling and how to implement a range of models in R.
 
 {% include toc.html %}
 

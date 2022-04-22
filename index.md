@@ -12,6 +12,8 @@ layout: default
 * __Where__: Karolinska Institutet
 * __Date__: 9<sup>th</sup>-10<sup>th</sup> June 2022
 * __Time__: 9:00 - 18:00
+* __Instructor__: [Nathan Green]( https://n8thangreen.github.io/)
+
 
 Learn about health economics modelling and how to implement a range of models in R.
 The first day of the course will consist of lectures giving a grounding in health economics modelling for cost-effectiveness analyses from a Bayesian perspective.
@@ -28,7 +30,6 @@ The second day of the course will consist of computer labs in which models prese
 
 
 ## Software
-
 Required software:
 * R (free general statistical software)
 * OpenBUGS (free software for Bayesian analysis)
@@ -41,7 +42,6 @@ Course faculty will assist you with the installation during the course if needed
 
 
 ### Installation
-
 The following sets out a basic installation process:
 
 If necessary [download and install R](https://www.r-project.org/) and potentially a user interface to R like [RStudio](https://www.rstudio.com/).
@@ -53,6 +53,9 @@ Install additional R packages: e.g., in R `install.packages("rjags")` and `insta
 
 ## Target audience
 Biomedical researchers/practitioners with a mathematics/statistics/computational-based degree (e.g., mathematics, statistics, bioinformatics, engineering, physics, computer science).
+
+## Course certificate
+Each participant will receive a certificate of attendance. There is no examination. The course is not an official university course and completion of the course does not automatically entitle academic credits.
 
 Registration: xx
 

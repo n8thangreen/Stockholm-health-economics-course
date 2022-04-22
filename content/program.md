@@ -11,7 +11,7 @@ topics: Cost-effectiveness analysis; R software
 
 BREAK
 
-* 11:30-12:30 Model error and structural uncertainty: PSA and DSA
+* 11:30-12:30 Model error and structural uncertainty
 
 LUNCH
 
@@ -34,9 +34,9 @@ BREAK
 LUNCH
 
 * 1:30-2:30 Building a more complex Markov model in R
-* 2:30-3:30 Visualising cost-effectiveness analyses with the `BCEA` package
+* 2:30-3:30 Sensitivity analysis
 
 BREAK
 
-* 4:00-5:00 Markov models and the `heesim` package
+* 4:00-5:00 Visualising cost-effectiveness analyses with the `BCEA` package
 * 5:00 Wrap up and thanks

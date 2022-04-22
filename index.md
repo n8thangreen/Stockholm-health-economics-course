@@ -15,7 +15,7 @@ layout: default
 
 Learn about health economics modelling and how to implement a range of models in R.
 The first day of the course will consist of lectures giving a grounding in health economics modelling for cost-effectiveness analyses from a Bayesian perspective.
-The second day of the course will consist of computer labs in which models presented in Day 1 are are implemented in R.
+The second day of the course will consist of computer labs in which models presented in Day 1 are implemented in R.
 
 ## Prerequisits
 * __Day 1__: No health economics background is assumed. Basic statistics and probabilty is preferable and ideally some Bayesian inference.

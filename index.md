@@ -9,7 +9,7 @@ layout: default
 
 > Karolinska Institutet and University College London will be hosting a course on health economics modelling in R.
 
-* __Where__: Karolinska Institutet
+* __Where__: Karolinska Institutet, Solna (see program for details of lecture rooms)
 * __Date__: 9<sup>th</sup>-10<sup>th</sup> June 2022
 * __Time__: 9:00 - 18:00
 * __Instructor__: [Nathan Green](https://iris.ucl.ac.uk/iris/browse/profile?upi=NGGRE44)
@@ -35,9 +35,9 @@ Required software:
 * OpenBUGS (free software for Bayesian analysis)
 * JAGS (alternative software for Bayesian analysis) – probably the easiest option for Linux or Mac users
 
-We suggest all participants bring a laptop on which they have installed R (along with the `BCEA` package) and OpenBUGS and/or JAGS.
+We suggest all participants attending day 2 bring a laptop on which they have installed R (along with the `BCEA` package) and OpenBUGS and/or JAGS.
 
-Course faculty will assist you with the installation during the course if needed. Contact *name of TA* if you need help with installation prior to the course.
+Course faculty will assist you with the installation during the course if needed. Contact [Enoch Yi-Tung Chen](mailto:enoch.yitung.chen@ki.se) if you need help with installation prior to the course.
 
 
 
@@ -57,11 +57,12 @@ Biomedical researchers/practitioners with a mathematics/statistics/computational
 ## Course certificate
 Each participant will receive a certificate of attendance. There is no examination. The course is not an official university course and completion of the course does not automatically entitle academic credits.
 
-Registration: xx
+## Registration
+Registration: [Register via Google forms](https://forms.gle/iWhDxiLWY4nGW5JEA)
 
 Cost: No charge to participants
 
-Please register before xx. 
+Please register before June 1st. 
 
 {% include toc.html %}
 

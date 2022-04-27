@@ -9,7 +9,7 @@ layout: default
 
 > Karolinska Institutet and University College London will be hosting a course on health economics modelling in R.
 
-* __Where__: Karolinska Institutet, Solna (see program for details of lecture rooms)
+* __Where__: Karolinska Institutet, Solna (see [program](https://n8thangreen.github.io/Stockholm-health-economics-course/content/program.html) for details of lecture rooms)
 * __Date__: 9<sup>th</sup>-10<sup>th</sup> June 2022
 * __Time__: 9:00 - 18:00
 * __Instructor__: [Nathan Green](https://iris.ucl.ac.uk/iris/browse/profile?upi=NGGRE44)
@@ -30,7 +30,7 @@ The second day of the course will consist of computer labs in which models prese
 
 
 ## Software
-Required software:
+Required software (for day 2):
 * R (free general statistical software)
 * OpenBUGS (free software for Bayesian analysis)
 * JAGS (alternative software for Bayesian analysis) – probably the easiest option for Linux or Mac users
@@ -52,7 +52,7 @@ and/or [OpenBUGS](https://openbugs.net/w/Downloads).
 Install additional R packages: e.g., in R `install.packages("rjags")` and `install.packages("R2OpenBUGS")`.
 
 ## Target audience
-Biomedical researchers/practitioners with a mathematics/statistics/computational-based degree (e.g., mathematics, statistics, bioinformatics, engineering, physics, computer science).
+The course is open to everyone with an interest in health economics modelling. The primary target audience is researchers knowledgeable about statistical modelling who are interested in learning health economics modelling. That is, we assume participants have prior knowledge of statistics but do not assume prior knowledge of health economics.
 
 ## Course certificate
 Each participant will receive a certificate of attendance. There is no examination. The course is not an official university course and completion of the course does not automatically entitle academic credits.

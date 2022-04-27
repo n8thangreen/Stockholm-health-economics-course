@@ -10,7 +10,7 @@ topics: Cost-effectiveness analysis; R software
 * Day 1: 11:30-17:00 Room 507, Aula medica, Nobels väg 6
 * Day 2: 9:00-17:00 Room 507, Aula medica, Nobels väg 6
 
-The first session (9-11 on day 1) is open to anyone interested in listening to an overview of the field, so we have booked a larger lecture room. No regiostration is required for attending the first session.
+The first session (9-11 on day 1) is open to anyone interested in listening to an overview of the field, so we have booked a larger lecture room. Registration is not required for attending the first session.
 
 ### Day 1 (Thursday 9<sup>th</sup> June 2022)
 * 9:00-9:10 Welcome and introductions

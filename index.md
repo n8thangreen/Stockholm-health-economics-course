@@ -62,7 +62,7 @@ Registration: [Register via Google forms](https://forms.gle/iWhDxiLWY4nGW5JEA)
 
 Cost: No charge to participants
 
-Please register before June 1st. 
+Please register before June 1st. Class size is limited on day 2 (hands-on computer exercises). If the course is oversubscribed, priority will be given to staff and students at Karolinska Institutet.  
 
 {% include toc.html %}
 

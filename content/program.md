@@ -1,16 +1,15 @@
 ---
-title: Program
+title: Program - Health economics modelling in R
 nav: Program
 topics: Cost-effectiveness analysis; R software
 ---
 
 ### Lecture rooms
 
-* Day 1: 9:00-11:00 Rockefeller, Nobels väg 11
-* Day 1: 11:30-17:00 Room 507, Aula medica, Nobels väg 6
-* Day 2: 9:00-17:00 Room 507, Aula medica, Nobels väg 6
+* Day 1: 9:00-17:00 Lecture hall [Petrén](https://medarbetare.ki.se/petren), Nobels väg 12B, KI Solna
+* Day 2: 9:00-17:00 Room [Marie](https://staff.ki.se/marie), Ground floor in Widerströmska huset, Tomtebodavägen 18a, KI Solna
 
-The first session (9-11 on day 1) is open to anyone interested in listening to an overview of the field, so we have booked a larger lecture room. Registration is not required for attending the first session.
+The first session (9-11 on day 1) is open to anyone interested in listening to an overview of the field. Registration is not required for attending this first session.
 
 ### Day 1 (Thursday 9<sup>th</sup> June 2022)
 * 9:00-9:10 Welcome and introductions

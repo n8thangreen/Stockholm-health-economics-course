@@ -11,7 +11,7 @@ layout: default
 
 * __Where__: Karolinska Institutet, Solna (see [program](https://n8thangreen.github.io/Stockholm-health-economics-course/content/program.html) for details of lecture rooms)
 * __Date__: 9<sup>th</sup>-10<sup>th</sup> June 2022
-* __Time__: 9:00 - 18:00
+* __Time__: 9:00 - 17:00
 * __Instructor__: [Nathan Green](https://iris.ucl.ac.uk/iris/browse/profile?upi=NGGRE44)
 
 

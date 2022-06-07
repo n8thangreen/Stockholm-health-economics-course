@@ -34,12 +34,12 @@ BREAK
 [Practical workbook](../practicals.pdf)
 
 * 9:00-9:10 Welcome and introductions
-* 9:10-10:00 Building a basic decision tree in R ([Resources](../decision_trees))
+* 9:10-10:00 Building a basic decision tree in R ([Resources](../decision_trees/))
 * 10:00-11:00 Building more complex tree in R
 
 BREAK
 
-* 11:30-12:30 Building a simple Markov model in R ([Resources](../markov_models))
+* 11:30-12:30 Building a simple Markov model in R ([Resources](../markov_models/))
 
 LUNCH
 

@@ -43,7 +43,7 @@ BREAK
 
 LUNCH
 
-* 1:30-2:30 Building a more complex Markov model in R
+* 1:30-2:30 Building a more complex (Bayesian) Markov model in R ([Resources](../practicals/8_markov_bayesian/))
 * 2:30-3:30 Sensitivity analysis
 
 BREAK

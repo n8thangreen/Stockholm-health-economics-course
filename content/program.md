@@ -31,7 +31,7 @@ BREAK
 
 ### Day 2 (Friday 10<sup>th</sup> June 2022)
 
-[Practical workbook](../blob/main/README)
+[Practical workbook](../README)
 
 * 9:00-9:10 Welcome and introductions
 * 9:10-10:00 Building a basic decision tree in R

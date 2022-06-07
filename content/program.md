@@ -30,6 +30,9 @@ BREAK
 * 4:00-5:00 Review and wrap up
 
 ### Day 2 (Friday 10<sup>th</sup> June 2022)
+
+[Practical workbook](../blob/main/README)
+
 * 9:00-9:10 Welcome and introductions
 * 9:10-10:00 Building a basic decision tree in R
 * 10:00-11:00 Building more complex tree in R

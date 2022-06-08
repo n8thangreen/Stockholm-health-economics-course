@@ -34,7 +34,7 @@ BREAK
 [Practical workbook](../practicals.pdf)
 
 * 9:00-9:10 Welcome and introductions
-* 9:10-10:00 Building a basic decision tree in R ([Resources](https://github.com/n8thangreen/Stockholm-health-economics-course/tree/main/practical_resources/decision_trees))
+* 9:10-10:00 Building a basic decision tree in R ([Files on GitHub](https://github.com/n8thangreen/Stockholm-health-economics-course/tree/main/practical_resources/decision_trees) or [.zip](https://github.com/n8thangreen/Stockholm-health-economics-course/tree/main/practical_resources/decision_trees.zip))
 * 10:00-11:00 Building more complex tree in R
 
 BREAK

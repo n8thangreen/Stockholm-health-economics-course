@@ -34,16 +34,16 @@ BREAK
 [Practical workbook](../practicals.pdf)
 
 * 9:00-9:10 Welcome and introductions
-* 9:10-10:00 Building a basic decision tree in R ([Resources](../practicals/decision_trees/))
+* 9:10-10:00 Building a basic decision tree in R ([Resources](../practical_resources/decision_trees/))
 * 10:00-11:00 Building more complex tree in R
 
 BREAK
 
-* 11:30-12:30 Building a simple Markov model in R ([Resources](../practicals/markov_models/))
+* 11:30-12:30 Building a simple Markov model in R ([Resources](../practical_resources/markov_models/))
 
 LUNCH
 
-* 1:30-2:30 Building a more complex (Bayesian) Markov model in R ([Resources](../practicals/8_markov_bayesian/))
+* 1:30-2:30 Building a more complex (Bayesian) Markov model in R ([Resources](../practical_resources/8_markov_bayesian/))
 * 2:30-3:30 Sensitivity analysis
 
 BREAK

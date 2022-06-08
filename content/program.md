@@ -39,11 +39,11 @@ BREAK
 
 BREAK
 
-* 11:30-12:30 Building a simple Markov model in R ([Resources](https://github.com/n8thangreen/Stockholm-health-economics-course/tree/main/practical_resources/markov_models))
+* 11:30-12:30 Building a simple Markov model in R ([Files on GitHub](https://github.com/n8thangreen/Stockholm-health-economics-course/tree/main/practical_resources/markov_models) or [.zip](https://github.com/n8thangreen/Stockholm-health-economics-course/tree/main/practical_resources/markov_models.zip))
 
 LUNCH
 
-* 1:30-2:30 Building a more complex (Bayesian) Markov model in R ([Resources](https://github.com/n8thangreen/Stockholm-health-economics-course/tree/main/practical_resources/8_markov_bayesian))
+* 1:30-2:30 Building a more complex (Bayesian) Markov model in R ([Files on GitHub](https://github.com/n8thangreen/Stockholm-health-economics-course/tree/main/practical_resources/8_markov_bayesian) or [.zip](https://github.com/n8thangreen/Stockholm-health-economics-course/tree/main/practical_resources/8_markov_bayesian.zip))
 * 2:30-3:30 Sensitivity analysis
 
 BREAK

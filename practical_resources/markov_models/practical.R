@@ -1,0 +1,457 @@
+##########################
+# Markov model practical #
+##########################
+
+## model set-up ----
+
+t_names <- c("without_drug", "with_drug")
+n_treatments <- length(t_names)
+
+s_names  <- c("Asymptomatic_disease", "Progressive_disease", "Dead")
+n_states <- length(s_names)
+
+n_pop <- 1000
+
+n_cycles <- 46
+Initial_age <- 55
+
+###########
+## what are the input values (from the Excel spreadsheet)?
+###########
+
+cAsymp <- ?
+cDeath <- ?
+cDrug <- ?
+cProg <- ?
+uAsymp <- ?
+uProg <- ?
+oDr <- ?
+cDr <- ?
+tpDcm <- ?
+
+# transition matrix variables
+tpProg <- 0.01
+tpDcm <- 0.15
+tpDn <- 0.0138
+effect <- 0.5
+
+# cost of staying in state
+state_c_matrix <-
+  matrix(c(cAsymp, cProg, 0,
+           cAsymp + cDrug, cProg, 0),
+         byrow = TRUE,
+         nrow = n_treatments,
+         dimnames = list(t_names,
+                         s_names))
+
+# qaly when staying in state
+state_q_matrix <-
+  matrix(c(uAsymp, uProg, 0,
+           uAsymp, uProg, 0),
+         byrow = TRUE,
+         nrow = n_treatments,
+         dimnames = list(t_names,
+                         s_names))
+
+# cost of moving to a state
+# same for both treatments
+trans_c_matrix <-
+  matrix(c(0, 0, 0,
+           0, 0, cDeath,
+           0, 0, 0),
+         byrow = TRUE,
+         nrow = n_states,
+         dimnames = list(from = s_names,
+                         to = s_names))
+
+# Transition probabilities ---- 
+
+###########
+## why to the dimensions have this ordering?
+###########
+
+# Transition probabilities
+p_matrix <- array(data = 0,
+                  dim = c(n_states, n_states, n_treatments),
+                  dimnames = list(from = s_names,
+                                  to = s_names,
+                                  t_names))
+
+## assume doesn't depend on cycle
+p_matrix["Asymptomatic_disease", "Progressive_disease", "without_drug"] <- tpProg
+p_matrix["Asymptomatic_disease", "Dead", "without_drug"] <- tpDn
+p_matrix["Asymptomatic_disease", "Asymptomatic_disease", "without_drug"] <- 1 - tpProg - tpDn
+p_matrix["Progressive_disease", "Dead", "without_drug"] <- tpDcm + tpDn
+p_matrix["Progressive_disease", "Progressive_disease", "without_drug"] <- 1 - tpDcm - tpDn
+p_matrix["Dead", "Dead", "without_drug"] <- 1
+
+# Matrix containing transition probabilities for with_drug
+p_matrix["Asymptomatic_disease", "Progressive_disease", "with_drug"] <- tpProg*(1 - effect)
+p_matrix["Asymptomatic_disease", "Dead", "with_drug"] <- tpDn
+p_matrix["Asymptomatic_disease", "Asymptomatic_disease", "with_drug"] <- 1 - tpProg*(1 - effect) - tpDn
+p_matrix["Progressive_disease", "Dead", "with_drug"] <- tpDcm + tpDn
+p_matrix["Progressive_disease", "Progressive_disease", "with_drug"] <- 1 - tpDcm - tpDn
+p_matrix["Dead", "Dead", "with_drug"] <- 1
+
+# Store population output for each cycle 
+
+# state populations
+pop <- array(data = NA,
+             dim = c(n_states, n_cycles, n_treatments),
+             dimnames = list(state = s_names,
+                             cycle = NULL,
+                             treatment = t_names))
+
+###########
+## define the initial populations
+## hint: pop[<state name>, <cycle number>, <intervention>]
+###########
+pop[] <- ?
+pop[] <- ?
+pop[] <- ?
+
+# _arrived_ state populations
+trans <- array(data = NA,
+               dim = c(n_states, n_cycles, n_treatments),
+               dimnames = list(state = s_names,
+                               cycle = NULL,
+                               treatment = t_names))
+
+trans[, cycle = 1, ] <- 0
+
+
+# Sum costs and QALYs for each cycle at a time for each drug 
+
+cycle_empty_array <-
+  array(NA,
+        dim = c(n_treatments, n_cycles),
+        dimnames = list(treatment = t_names,
+                        cycle = NULL))
+
+cycle_state_costs <- cycle_trans_costs <- cycle_empty_array
+cycle_costs <- cycle_QALYs <- cycle_empty_array
+LE <- LYs <- cycle_empty_array    # life-expectancy; life-years
+cycle_QALE <- cycle_empty_array   # qaly-adjusted life-years
+
+total_costs <- setNames(c(NA, NA), t_names)
+total_QALYs <- setNames(c(NA, NA), t_names)
+
+
+
+## Run model ----
+
+for (i in 1:n_treatments) {
+  
+  age <- Initial_age
+  
+  for (j in 2:n_cycles) {
+    
+    pop[, cycle = j, treatment = i] <-
+      pop[, cycle = j - 1, treatment = i] %*% p_matrix[, , treatment = i]
+    
+    trans[, cycle = j, treatment = i] <-
+      pop[, cycle = j - 1, treatment = i] %*% (trans_c_matrix * p_matrix[, , treatment = i])
+    
+    age <- age + 1
+  }
+  
+  cycle_state_costs[i, ] <-
+    (state_c_matrix[treatment = i, ] %*% pop[, , treatment = i]) * 1/(1 + cDr)^(1:n_cycles - 1)
+  
+  # discounting at _previous_ cycle
+  cycle_trans_costs[i, ] <-
+    (c(1,1,1) %*% trans[, , treatment = i]) * 1/(1 + cDr)^(1:n_cycles - 2)
+  
+  cycle_costs[i, ] <- cycle_state_costs[i, ] + cycle_trans_costs[i, ]
+  
+  LE[i, ] <- c(1,1,0) %*% pop[, , treatment = i]
+  
+  LYs[i, ] <- LE[i, ] * 1/(1 + oDr)^(1:n_cycles - 1)
+  
+  cycle_QALE[i, ] <-
+    state_q_matrix[treatment = i, ] %*% pop[, , treatment = i]
+  
+  cycle_QALYs[i, ] <- cycle_QALE[i, ] * 1/(1 + oDr)^(1:n_cycles - 1)
+  
+  total_costs[i] <- sum(cycle_costs[treatment = i, -1])
+  total_QALYs[i] <- sum(cycle_QALYs[treatment = i, -1])
+}
+
+
+## Plot results ----
+
+# Incremental costs and QALYs of with_drug vs to without_drug
+c_incr <- total_costs["with_drug"] - total_costs["without_drug"]
+q_incr <- total_QALYs["with_drug"] - total_QALYs["without_drug"]
+
+###########
+## what the incremental cost effectiveness ratio?
+###########
+ICER <- 
+
+plot(x = q_incr/n_pop, y = c_incr/n_pop,
+     xlim = c(0, 1500/n_pop),
+     ylim = c(0, 12e6/n_pop),
+     pch = 16, cex = 1.5,
+     xlab = "QALY difference",
+     ylab = "Cost difference (£)",
+     frame.plot = FALSE)
+abline(a = 0, b = 30000) # Willingness-to-pay threshold
+
+
+############################
+# cycle-dependent model
+
+# cycle-dependent probability matrix
+
+p_matrix_cycle <- function(p_matrix, cycle,
+                           tpProg = 0.01,
+                           tpDcm = 0.15,
+                           tpDn = 0.0138,
+                           effect = 0.5) {
+  
+  # Matrix containing transition probabilities for without_drug
+  
+  p_matrix["Asymptomatic_disease", "Progressive_disease", "without_drug"] <- tpProg*cycle
+  p_matrix["Asymptomatic_disease", "Dead", "without_drug"] <- tpDn
+  p_matrix["Asymptomatic_disease", "Asymptomatic_disease", "without_drug"] <- 1 - tpProg*cycle - tpDn
+  p_matrix["Progressive_disease", "Dead", "without_drug"] <- tpDcm + tpDn
+  p_matrix["Progressive_disease", "Progressive_disease", "without_drug"] <- 1 - tpDcm - tpDn
+  p_matrix["Dead", "Dead", "without_drug"] <- 1
+  
+  # Matrix containing transition probabilities for with_drug
+  p_matrix["Asymptomatic_disease", "Progressive_disease", "with_drug"] <- tpProg*(1 - effect)*cycle
+  p_matrix["Asymptomatic_disease", "Dead", "with_drug"] <- tpDn
+  p_matrix["Asymptomatic_disease", "Asymptomatic_disease", "with_drug"] <-
+    1 - tpProg*(1 - effect)*cycle - tpDn
+  p_matrix["Progressive_disease", "Dead", "with_drug"] <- tpDcm + tpDn
+  p_matrix["Progressive_disease", "Progressive_disease", "with_drug"] <- 1 - tpDcm - tpDn
+  p_matrix["Dead", "Dead", "with_drug"] <- 1
+  
+  return(p_matrix)
+}
+
+
+###########
+## include:
+##
+## p_matrix <- p_matrix_cycle(p_matrix, j - 1)
+##
+## in the correct place in the model running loops from above
+## and run model
+###########
+
+
+## Plot results ----
+
+###########
+## calculate incremental q and c
+###########
+
+plot(x = q_incr/n_pop, y = c_incr/n_pop,
+     xlim = c(0, 1500/n_pop),
+     ylim = c(0, 12e6/n_pop),
+     pch = 16, cex = 1.5,
+     xlab = "QALY difference",
+     ylab = "Cost difference (£)",
+     frame.plot = FALSE)
+
+###########
+## draw a willingness-to-pay threshold at £30,000
+###########
+
+
+############################################
+# age-dependent transition probability
+
+p_matrix_cycle <- function(p_matrix, age, cycle,
+                           tpProg = 0.01,
+                           tpDcm = 0.15,
+                           effect = 0.5) {
+  
+  tpDn_lookup <-
+    c("(34,44]" = 0.0017,
+      "(44,54]" = 0.0044,
+      "(54,64]" = 0.0138,
+      "(64,74]" = 0.0379,
+      "(74,84]" = 0.0912,
+      "(84,100]" = 0.1958)
+  
+  age_grp <- cut(age, breaks = c(34,44,54,64,74,84,100))
+  
+  tpDn <- tpDn_lookup[age_grp]
+  
+  ######################
+  # insert here
+  # same probs as above
+  ######################
+}
+
+###########
+## Run model...
+###########
+
+
+
+#############################################
+# Probability Sensitivity Analysis (PSA)
+
+ce_markov <- function(start_pop,
+                      p_matrix,
+                      state_c_matrix,
+                      trans_c_matrix,
+                      state_q_matrix,
+                      n_cycles = 46,
+                      init_age = 55,
+                      s_names = NULL,
+                      t_names = NULL) {
+  
+  n_states <- length(start_pop)
+  n_treat <- dim(p_matrix)[3]
+  
+  pop <- array(data = NA,
+               dim = c(n_states, n_cycles, n_treat),
+               dimnames = list(state = s_names,
+                               cycle = NULL,
+                               treatment = t_names))
+  trans <- array(data = NA,
+                 dim = c(n_states, n_cycles, n_treat),
+                 dimnames = list(state = s_names,
+                                 cycle = NULL,
+                                 treatment = t_names))
+  
+  for (i in 1:n_states) {
+    pop[i, cycle = 1, ] <- start_pop[i]
+  }
+  
+  cycle_empty_array <-
+    array(NA,
+          dim = c(n_treat, n_cycles),
+          dimnames = list(treatment = t_names,
+                          cycle = NULL))
+  
+  cycle_state_costs <- cycle_trans_costs <- cycle_empty_array
+  cycle_costs <- cycle_QALYs <- cycle_empty_array
+  LE <- LYs <- cycle_empty_array    # life-expectancy; life-years
+  cycle_QALE <- cycle_empty_array   # qaly-adjusted life-years
+  
+  total_costs <- setNames(rep(NA, n_treat), t_names)
+  total_QALYs <- setNames(rep(NA, n_treat), t_names)
+  
+  for (i in 1:n_treat) {
+    
+    age <- init_age
+    
+    for (j in 2:n_cycles) {
+      
+      # difference from point estimate case
+      # pass in functions for random sample
+      # rather than fixed values
+      p_matrix <- p_matrix_cycle(p_matrix, age, j - 1,
+                                 tpProg = tpProg(),
+                                 tpDcm = tpDcm(),
+                                 effect = effect())
+      
+      # Matrix multiplication
+      pop[, cycle = j, treatment = i] <-
+        pop[, cycle = j - 1, treatment = i] %*% p_matrix[, , treatment = i]
+      
+      trans[, cycle = j, treatment = i] <-
+        pop[, cycle = j - 1, treatment = i] %*% (trans_c_matrix * p_matrix[, , treatment = i])
+      
+      age <- age + 1
+    }
+    
+    cycle_state_costs[i, ] <-
+      (state_c_matrix[treatment = i, ] %*% pop[, , treatment = i]) * 1/(1 + cDr)^(1:n_cycles - 1)
+    
+    cycle_trans_costs[i, ] <-
+      (c(1,1,1) %*% trans[, , treatment = i]) * 1/(1 + cDr)^(1:n_cycles - 2)
+    
+    cycle_costs[i, ] <- cycle_state_costs[i, ] + cycle_trans_costs[i, ]
+    
+    LE[i, ] <- c(1,1,0) %*% pop[, , treatment = i]
+    
+    LYs[i, ] <- LE[i, ] * 1/(1 + oDr)^(1:n_cycles - 1)
+    
+    cycle_QALE[i, ] <-
+      state_q_matrix[treatment = i, ] %*%  pop[, , treatment = i]
+    
+    cycle_QALYs[i, ] <- cycle_QALE[i, ] * 1/(1 + oDr)^(1:n_cycles - 1)
+    
+    total_costs[i] <- sum(cycle_costs[treatment = i, -1])
+    total_QALYs[i] <- sum(cycle_QALYs[treatment = i, -1])
+  }
+  
+  list(pop = pop,
+       cycle_costs = cycle_costs,
+       cycle_QALYs = cycle_QALYs,
+       total_costs = total_costs,
+       total_QALYs = total_QALYs)
+}
+
+
+# replace point values with functions to random sample
+
+cAsymp <- function() rnorm(1, 500, 127.55)
+cDeath <- function() rnorm(1, 1000, 255.11)
+cDrug  <- function() rnorm(1, 1000, 102.04)
+cProg  <- function() rnorm(1, 3000, 510.21)
+effect <- function() rnorm(1, 0.5, 0.051)
+tpDcm  <- function() rbeta(1, 29, 167)
+tpProg <- function() rbeta(1, 15, 1506)
+uAsymp <- function() rbeta(1, 69, 4)
+
+###########
+## what is this variable (from the Excel spreadsheet)?
+###########
+uProg  <- ?
+
+
+# Define cost and QALYs as functions
+
+state_c_matrix <- function() {
+  matrix(c(cAsymp(), cProg(), 0,            # without drug
+           cAsymp() + cDrug(), cProg(), 0), # with drug
+         byrow = TRUE,
+         nrow = n_treatments,
+         dimnames = list(t_names,
+                         s_names))
+}
+
+###########
+## perform the same modification for state_q_matrix and trans_c_matrix
+###########
+
+## Run PSA analysis ----
+
+n_trials <- 500
+
+costs <- matrix(NA, nrow = n_trials, ncol = n_treatments,
+                dimnames = list(NULL, t_names))
+qalys <- matrix(NA, nrow = n_trials, ncol = n_treatments,
+                dimnames = list(NULL, t_names))
+
+for (i in 1:n_trials) {
+  ce_res <- ce_markov(start_pop = c(n_pop, 0, 0),
+                      p_matrix,
+                      state_c_matrix(),
+                      trans_c_matrix(),
+                      state_q_matrix())
+  
+  costs[i, ] <- ce_res$total_costs
+  qalys[i, ] <- ce_res$total_QALYs
+}
+
+
+## Plot results ----
+
+# incremental costs and QALYs of with_drug vs to without_drug
+c_incr_psa <- costs[, "with_drug"] - costs[, "without_drug"]
+q_incr_psa <- qalys[, "with_drug"] - qalys[, "without_drug"]
+
+###########
+## plot the cost-effectiveness plane
+###########
+
+
